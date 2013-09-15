@@ -1,7 +1,7 @@
 === Plugin Name ===
-Contributors: juliobox, GregLone
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KJGT942XKWJ6W
-Tags: login, log in, logout, menu, nonce
+Contributors: mrwulf, juliobox, GregLone
+Donate link: 
+Tags: login, log in, logout, menu, nonce, buddypress
 Requires at least: 3.0
 Tested up to: 3.5b2
 Stable tag: trunk
@@ -17,7 +17,7 @@ Also, you can set the redirecion page you want, just awesome.
 
 == Installation ==
 
-1. Upload the *"baw-login-logout-menu"* folder into the *"/wp-content/plugins/"* directory
+1. Upload the *"bp-direct-menu"* folder into the *"/wp-content/plugins/"* directory
 1. Activate the plugin through the *"Plugins"* menu in WordPress
 1. You can now add real log in and logout links in your Navigation Menus
 1. See FAQ for usage
