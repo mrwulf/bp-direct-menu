@@ -3,7 +3,7 @@ if( !defined( 'ABSPATH' ) )
 	die( 'Cheatin\' uh?' );
 
 /* Used to return the correct title for the double login/logout menu item */
-function bawllm_loginout_title( $title )
+function bpdm_loginout_title( $title )
 {
 	$titles = explode( '|', $title );
 	if ( ! is_user_logged_in() )
@@ -13,15 +13,15 @@ function bawllm_loginout_title( $title )
 }
 
 /* The main code, this replace the #keyword# by the correct links with nonce ect */
-add_filter( 'wp_setup_nav_menu_item', 'bawllm_setup_nav_menu_item' );
-function bawllm_setup_nav_menu_item( $item )
+add_filter( 'wp_setup_nav_menu_item', 'bpdm_setup_nav_menu_item' );
+function bpdm_setup_nav_menu_item( $item )
 {
 	global $pagenow;
-	if( $pagenow!='nav-menus.php' && !defined('DOING_AJAX') && isset( $item->url ) && strstr( $item->url, '#baw' ) != '' ){
+	if( $pagenow!='nav-menus.php' && !defined('DOING_AJAX') && isset( $item->url ) && strstr( $item->url, '#bpdm' ) != '' ){
 		$item_url = substr( $item->url, 0, strpos( $item->url, '#', 1 ) ) . '#';
 		$item_redirect = str_replace( $item_url, '', $item->url );
 		switch( $item_url ) {
-			case '#bawloginout#' : 	
+			case '#bpdmloginout#' : 	
 									$item_redirect = explode( '|', $item_redirect );
 									if( count( $item_redirect ) != 2 ) 
 										$item_redirect[1] = $item_redirect[0];
@@ -30,28 +30,28 @@ function bawllm_setup_nav_menu_item( $item )
 											$item_redirect[$i] = $_SERVER['REQUEST_URI'];
 									endfor;
 									$item->url = is_user_logged_in() ? wp_logout_url( $item_redirect[1] ) : wp_login_url( $item_redirect[0] );
-									$item->title = bawllm_loginout_title( $item->title ) ; break;
-			case '#bawlogin#' : 	$item->url = wp_login_url( $item_redirect ); break;
-			case '#bawlogout#' : 	$item->url = wp_logout_url( $item_redirect ); break;
-			case '#bawregister#' : 	if( is_user_logged_in() ) $item->title = '#bawregister#'; else $item->url = site_url( 'wp-login.php?action=register', 'login' ); break;
+									$item->title = bpdm_loginout_title( $item->title ) ; break;
+			case '#bpdmlogin#' : 	$item->url = wp_login_url( $item_redirect ); break;
+			case '#bpdmlogout#' : 	$item->url = wp_logout_url( $item_redirect ); break;
+			case '#bpdmregister#' : 	if( is_user_logged_in() ) $item->title = '#bpdmregister#'; else $item->url = site_url( 'wp-login.php?action=register', 'login' ); break;
 		}
 		$item->url = esc_url( $item->url );
 	}
 	return $item;
 }
 
-add_filter( 'wp_nav_menu_objects', 'bawllm_wp_nav_menu_objects' );
-function bawllm_wp_nav_menu_objects( $sorted_menu_items )
+add_filter( 'wp_nav_menu_objects', 'bpdm_wp_nav_menu_objects' );
+function bpdm_wp_nav_menu_objects( $sorted_menu_items )
 {
 	foreach( $sorted_menu_items as $k=>$item )
-		if( $item->title==$item->url && $item->title=='#bawregister#' )
+		if( $item->title==$item->url && $item->title=='#bpdmregister#' )
 			unset( $sorted_menu_items[$k] );
 	return $sorted_menu_items;
 }
 
 /* [login] shortcode */
-add_shortcode( 'login', 'bawllm_shortcode_login' );
-function bawllm_shortcode_login( $atts, $content = null )
+add_shortcode( 'login', 'bpdm_shortcode_login' );
+function bpdm_shortcode_login( $atts, $content = null )
 {
 	extract(shortcode_atts(array(
 		"edit_tag" => "",
@@ -64,8 +64,8 @@ function bawllm_shortcode_login( $atts, $content = null )
 }
 
 /* [loginout] shortcode */
-add_shortcode( 'loginout', 'bawllm_shortcode_loginout' );
-function bawllm_shortcode_loginout( $atts, $content = null )
+add_shortcode( 'loginout', 'bpdm_shortcode_loginout' );
+function bpdm_shortcode_loginout( $atts, $content = null )
 {
 	extract(shortcode_atts(array(
 		"edit_tag" => "",
@@ -83,8 +83,8 @@ function bawllm_shortcode_loginout( $atts, $content = null )
 }
 
 /* [logout] shortcode */
-add_shortcode( 'logout', 'bawllm_shortcode_logout' );
-function bawllm_shortcode_logout( $atts, $content = null )
+add_shortcode( 'logout', 'bpdm_shortcode_logout' );
+function bpdm_shortcode_logout( $atts, $content = null )
 {
 	extract(shortcode_atts(array(
 		"edit_tag" => "",
@@ -97,8 +97,8 @@ function bawllm_shortcode_logout( $atts, $content = null )
 }
 
 /* [register] shortcode */
-add_shortcode( 'register', 'bawllm_shortcode_register' );
-function bawllm_shortcode_register( $atts, $content = null )
+add_shortcode( 'register', 'bpdm_shortcode_register' );
+function bpdm_shortcode_register( $atts, $content = null )
 {
 	if( is_user_logged_in() )
 		return '';

@@ -3,17 +3,17 @@ if( !defined( 'ABSPATH' ) )
 	die( 'Cheatin\' uh?' );
 
 /* Add a metabox in admin menu page */
-add_action('admin_head-nav-menus.php', 'bawllm_add_nav_menu_metabox');
-function bawllm_add_nav_menu_metabox() {
-	add_meta_box( 'bawllm', __( 'Login/Logout links' ) . ' v' . BAWLLM_VERSION, 'bawllm_nav_menu_metabox', 'nav-menus', 'side', 'default' );
+add_action('admin_head-nav-menus.php', 'bpdm_add_nav_menu_metabox');
+function bpdm_add_nav_menu_metabox() {
+	add_meta_box( 'bawllm', __( 'Login/Logout links' ) . ' v' . BPDIRECTMENU_VERSION, 'bpdm_nav_menu_metabox', 'nav-menus', 'side', 'default' );
 }
 
 /* The metabox code : Awesome code stolen from screenfeed.fr (GregLone) Thank you mate. */
-function bawllm_nav_menu_metabox( $object )
+function bpdm_nav_menu_metabox( $object )
 {
 	global $nav_menu_selected_id;
 
-	$elems = array( '#bawlogin#' => __( 'Log In' ), '#bawlogout#' => __( 'Log Out' ), '#bawloginout#' => __( 'Log In' ).'|'.__( 'Log Out' ), '#bawregister#' => __( 'Register' ) );
+	$elems = array( '#bpdmlogin#' => __( 'Log In' ), '#bpdmlogout#' => __( 'Log Out' ), '#bpdmloginout#' => __( 'Log In' ).'|'.__( 'Log Out' ), '#bpdmregister#' => __( 'Register' ) );
 	class bawlogItems {
 		public $db_id = 0;
 		public $object = 'bawlog';
@@ -52,11 +52,11 @@ function bawllm_nav_menu_metabox( $object )
 				<span class="hide-if-js" id="help-login-links"><br /><a name="help-login-links"></a>
 					<?php
 					if( get_locale() == 'fr_FR' ) { // Light L10N
-						echo '&#9725; Vous pouvez ajouter une page de redirection apr&egrave;s le login/logout du membre en ajoutant simplement le lien relatif apr&egrave;s le mot cl&eacute; dans le lien, exemple <code>#bawloginout#index.php</code>.';
-						echo '<br />&#9725; Vous pouvez aussi ajouter <code>%actualpage%</code> pour que la redirection soit faite sur la page en cours, exemple : <code>#bawloginout#%actualpage%</code>.';
+						echo '&#9725; Vous pouvez ajouter une page de redirection apr&egrave;s le login/logout du membre en ajoutant simplement le lien relatif apr&egrave;s le mot cl&eacute; dans le lien, exemple <code>#bpdmloginout#index.php</code>.';
+						echo '<br />&#9725; Vous pouvez aussi ajouter <code>%actualpage%</code> pour que la redirection soit faite sur la page en cours, exemple : <code>#bpdmloginout#%actualpage%</code>.';
 					}else{
-						echo '&#9725; You can add a redirection page after the user\'s login/logout simply adding a relative link after the link\'s keyword, example <code>#bawloginout#index.php</code>.';
-						echo '<br />&#9725; You can also add <code>%actualpage%</code> to redirect the user on the actual visited page, example : <code>#bawloginout#%actualpage%</code>.';
+						echo '&#9725; You can add a redirection page after the user\'s login/logout simply adding a relative link after the link\'s keyword, example <code>#bpdmloginout#index.php</code>.';
+						echo '<br />&#9725; You can also add <code>%actualpage%</code> to redirect the user on the actual visited page, example : <code>#bpdmloginout#%actualpage%</code>.';
 					}
 					
 					?>
@@ -74,10 +74,10 @@ function bawllm_nav_menu_metabox( $object )
 }
 
 /* Modify the "type_label" */
-add_filter( 'wp_setup_nav_menu_item', 'bawllm_nav_menu_type_label' );
-function bawllm_nav_menu_type_label( $menu_item )
+add_filter( 'wp_setup_nav_menu_item', 'bpdm_nav_menu_type_label' );
+function bpdm_nav_menu_type_label( $menu_item )
 {
-	$elems = array( '#bawlogin#', '#bawlogout#', '#bawloginout#', '#bawregister#' );
+	$elems = array( '#bpdmlogin#', '#bpdmlogout#', '#bpdmloginout#', '#bpdmregister#' );
 	if ( isset($menu_item->object, $menu_item->url) && $menu_item->object == 'custom' && in_array($menu_item->url, $elems) )
 		$menu_item->type_label = ( get_locale() == 'fr_FR' ? 'Connexion' : 'Connection' );
 
