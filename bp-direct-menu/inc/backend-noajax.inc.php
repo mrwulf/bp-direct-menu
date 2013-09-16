@@ -5,7 +5,7 @@ if( !defined( 'ABSPATH' ) )
 /* Add a metabox in admin menu page */
 add_action('admin_head-nav-menus.php', 'bpdm_add_nav_menu_metabox');
 function bpdm_add_nav_menu_metabox() {
-	add_meta_box( 'bawllm', __( 'Login/Logout links' ) . ' v' . BPDIRECTMENU_VERSION, 'bpdm_nav_menu_metabox', 'nav-menus', 'side', 'default' );
+	add_meta_box( 'bpdm', __( 'Login/Logout links' ) . ' v' . BPDIRECTMENU_VERSION, 'bpdm_nav_menu_metabox', 'nav-menus', 'side', 'default' );
 }
 
 /* The metabox code : Awesome code stolen from screenfeed.fr (GregLone) Thank you mate. */
@@ -14,9 +14,9 @@ function bpdm_nav_menu_metabox( $object )
 	global $nav_menu_selected_id;
 
 	$elems = array( '#bpdmlogin#' => __( 'Log In' ), '#bpdmlogout#' => __( 'Log Out' ), '#bpdmloginout#' => __( 'Log In' ).'|'.__( 'Log Out' ), '#bpdmregister#' => __( 'Register' ) );
-	class bawlogItems {
+	class bpdmlogItems {
 		public $db_id = 0;
-		public $object = 'bawlog';
+		public $object = 'bpdmlog';
 		public $object_id;
 		public $menu_item_parent = 0;
 		public $type = 'custom';
@@ -30,7 +30,7 @@ function bpdm_nav_menu_metabox( $object )
 
 	$elems_obj = array();
 	foreach ( $elems as $value => $title ) {
-		$elems_obj[$title] = new bawlogItems();
+		$elems_obj[$title] = new bpdmlogItems();
 		$elems_obj[$title]->object_id	= esc_attr( $value );
 		$elems_obj[$title]->title		= esc_attr( $title );
 		$elems_obj[$title]->url			= esc_attr( $value );
