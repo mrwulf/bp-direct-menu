@@ -32,16 +32,30 @@ function bpdm_setup_nav_menu_item( $item )
 									endfor;
 									$item->url = is_user_logged_in() ? wp_logout_url( $item_redirect[1] ) : wp_login_url( $item_redirect[0] );
 									$item->title = bpdm_loginout_title( $item->title ) ; break;
-			case '#bpdmlogin#' : 	$item->url = wp_login_url( $item_redirect ); break;
-			case '#bpdmlogout#' : 	$item->url = wp_logout_url( $item_redirect ); break;
+			case '#bpdmlogin#' : 	if( is_user_logged_in() ) 
+										$item->title = '#bpdmremove#'; 
+									else
+										$item->url = wp_login_url( $item_redirect ); 
+									break;
+			case '#bpdmlogout#' : 	if( !is_user_logged_in() ) 
+										$item->title = '#bpdmremove#'; 
+									else
+										$item->url = wp_logout_url( $item_redirect );
+									break;
 			case '#bpdmregister#' : if( is_user_logged_in() ) 
 										$item->title = '#bpdmremove#'; 
 									else 
 										$item->url = site_url( 'wp-login.php?action=register', 'login' ); 
 									break;
-			case '#bpdmcustom#' : 	if( is_user_logged_in() )
+			case '#bpdmcustom#' : 	if( is_user_logged_in() ){
+										global $current_user;
+										get_currentuserinfo();
+										$item->title = str_ireplace("%username%", $current_user->user_login, $item->title);
+										$item->title = str_ireplace("%firstname%", $current_user->user_firstname, $item->title);
+										$item->title = str_ireplace("%lastname%", $current_user->user_lastname, $item->title);
+										$item->title = str_ireplace("%displayname%", $current_user->display_name, $item->title);
 										$item->url = bp_loggedin_user_domain() . ltrim( $item_redirect, "/" );
-									else
+									} else
 										$item->title = '#bpdmremove#';
 									break;
 		}
