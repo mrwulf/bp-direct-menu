@@ -48,12 +48,37 @@ function bpdm_setup_nav_menu_item( $item )
 										$item->url = site_url( 'wp-login.php?action=register', 'login' ); 
 									break;
 			case '#bpdmcustom#' : 	if( is_user_logged_in() ){
+										// Plug In User Info
 										global $current_user;
 										get_currentuserinfo();
 										$item->title = str_ireplace("%username%", $current_user->user_login, $item->title);
 										$item->title = str_ireplace("%firstname%", $current_user->user_firstname, $item->title);
 										$item->title = str_ireplace("%lastname%", $current_user->user_lastname, $item->title);
 										$item->title = str_ireplace("%displayname%", $current_user->display_name, $item->title);
+										$item->title = str_ireplace("%avatar-mini%", bp_core_fetch_avatar ( array( 'item_id' => $current_user->ID, 
+																												   'type' => 'thumb', 
+																												   'width' => 20, 
+																											       'height' => 20 ) 
+																									       ), $item->title);
+										$item->title = str_ireplace("%avatar-thumb%", bp_core_fetch_avatar ( array( 'item_id' => $current_user->ID, 
+																												    'type' => 'thumb' ) 
+																									        ), $item->title);
+										$item->title = str_ireplace("%avatar%", bp_core_fetch_avatar ( array( 'item_id' => $current_user->ID, 
+																									          'type' => 'full' ) 
+																									        ), $item->title);
+										
+										// Plug In Buddy Press Counts
+										$msgcount = messages_get_unread_count();
+										$friendcount = friends_get_total_friend_count();
+										$groupcount = groups_get_total_group_count();
+										$item->title = str_ireplace("%unreadmessagecount%", $msgcount, $item->title);
+										$item->title = str_ireplace("%friendcount%", $friendcount, $item->title);
+										$item->title = str_ireplace("%groupcount%", $friendcount, $item->title);
+										// Plug In Buddy Press Counts (hidden unless > 0)
+										$item->title = str_ireplace("%(unreadmessagecount)%", ($msgcount > 0) ? '('.$msgcount.')' : '', $item->title);
+										$item->title = str_ireplace("%(friendcount)%", ($friendcount > 0) ? '('.$friendcount.')' : '', $item->title);
+										$item->title = str_ireplace("%(groupcount)%", ($groupcount > 0) ? '('.$groupcount.')' : '', $item->title);
+										 
 										$item->url = bp_loggedin_user_domain() . ltrim( $item_redirect, "/" );
 									} else
 										$item->title = '#bpdmremove#';

@@ -57,7 +57,8 @@ function bpdm_nav_menu_metabox( $object )
 					<?php
 						echo '&#9725; You can add a redirection page after the user\'s login/logout simply adding a relative link after the link\'s keyword, example <code>#bpdmloginout#index.php</code>.';
 						echo '<br />&#9725; You can also add <code>%actualpage%</code> to redirect the user on the actual visited page, example : <code>#bpdmloginout#%actualpage%</code>.';
-						echo '<br />&#9725; For the custom link, put the url-piece after the keyword, example : <code>#bpdmcustom#/activity/friends/</code> will redirect to: <code>http://%site%/members/%username%/activity/friends/</code>.  Custom links only show up when a user is logged in. %username%,%firstname%,%lastname% and %displayname% will be replaced in the label.';
+						echo '<br />&#9725; For the custom link, put the url-piece after the keyword, example : <code>#bpdmcustom#/activity/friends/</code> will redirect to: <code>http://%site%/members/%username%/activity/friends/</code>.  Custom links only show up when a user is logged in.';
+						echo '<br />%username%,%firstname%,%lastname%, %displayname%, %unreadmessagecount%, %friendcount%, %groupcount%, %(unreadmessagecount)%, %(friendcount)%, %(groupcount)%, %avatar%, %avatar-thumb%, %avatar-mini% will be replaced in the label.';
 					?>
 				</span>
 			</span>
@@ -75,8 +76,7 @@ function bpdm_nav_menu_metabox( $object )
 add_filter( 'wp_setup_nav_menu_item', 'bpdm_nav_menu_type_label' );
 function bpdm_nav_menu_type_label( $menu_item )
 {
-	$elems = array( '#bpdmlogin#', '#bpdmlogout#', '#bpdmloginout#', '#bpdmregister#', '#bpdmcustom#' );
-	if ( isset($menu_item->object, $menu_item->url) && $menu_item->object == 'custom' && in_array($menu_item->url, $elems) )
+	if ( isset($menu_item->object, $menu_item->url) && $menu_item->object == 'custom' && strstr($menu_item->url, '#bpdm') )
 		$menu_item->type_label = ( 'BP Direct Link' );
 	return $menu_item;
 }
