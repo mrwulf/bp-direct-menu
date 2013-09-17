@@ -56,7 +56,6 @@ add_filter( 'wp_nav_menu_objects', 'bpdm_wp_nav_menu_objects' );
 function bpdm_wp_nav_menu_objects( $sorted_menu_items )
 {
 	foreach( $sorted_menu_items as $k=>$item )
-	// $item->title==$item->url &&
 		if( $item->title=='#bpdmremove#' )
 			unset( $sorted_menu_items[$k] );
 	return $sorted_menu_items;
@@ -125,6 +124,9 @@ function bpdm_shortcode_register( $atts, $content = null )
 add_shortcode( 'bpdm_custom', 'bpdm_shortcode_custom' );
 function bpdm_shortcode_custom( $atts, $content = null )
 {
+	if( !is_user_logged_in() )
+		return '';
+
 	extract(shortcode_atts(array(
 		"edit_tag" => "",
 		"url_part" => ""
