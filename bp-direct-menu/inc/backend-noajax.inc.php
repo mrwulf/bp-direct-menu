@@ -57,7 +57,7 @@ function bpdm_nav_menu_metabox( $object )
 					<?php
 						echo '&#9725; You can add a redirection page after the user\'s login/logout simply adding a relative link after the link\'s keyword, example <code>#bpdmloginout#index.php</code>.';
 						echo '<br />&#9725; You can also add <code>%actualpage%</code> to redirect the user on the actual visited page, example : <code>#bpdmloginout#%actualpage%</code>.';
-						echo '<br />&#9725; For the custom link, put the url-piece after the keyword, example : <code>#bpdmcustom#/activity/friends/</code> will redirect to: <code>http://%site%/members/%username%/activity/friends/</code>';
+						echo '<br />&#9725; For the custom link, put the url-piece after the keyword, example : <code>#bpdmcustom#/activity/friends/</code> will redirect to: <code>http://%site%/members/%username%/activity/friends/</code>.  Custom links only show up when a user is logged in.';
 					?>
 				</span>
 			</span>

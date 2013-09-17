@@ -12,7 +12,7 @@ function bpdm_loginout_title( $title )
 		return esc_html( isset( $titles[1] ) ? $titles[1] : $title );
 }
 
-/* The main code, this replace the #keyword# by the correct links with nonce ect */
+/* The main code, this replace the #keyword# by the correct links with nonce etc */
 add_filter( 'wp_setup_nav_menu_item', 'bpdm_setup_nav_menu_item' );
 function bpdm_setup_nav_menu_item( $item )
 {
@@ -34,8 +34,16 @@ function bpdm_setup_nav_menu_item( $item )
 									$item->title = bpdm_loginout_title( $item->title ) ; break;
 			case '#bpdmlogin#' : 	$item->url = wp_login_url( $item_redirect ); break;
 			case '#bpdmlogout#' : 	$item->url = wp_logout_url( $item_redirect ); break;
-			case '#bpdmregister#' : 	if( is_user_logged_in() ) $item->title = '#bpdmregister#'; else $item->url = site_url( 'wp-login.php?action=register', 'login' ); break;
-			case '#bpdmcustom#' : 	$item->url = bp_loggedin_user_domain() . ltrim( $item_redirect, "/" ); break;
+			case '#bpdmregister#' : if( is_user_logged_in() ) 
+										$item->title = '#bpdmremove#'; 
+									else 
+										$item->url = site_url( 'wp-login.php?action=register', 'login' ); 
+									break;
+			case '#bpdmcustom#' : 	if( is_user_logged_in() )
+										$item->url = bp_loggedin_user_domain() . ltrim( $item_redirect, "/" );
+									else
+										$item->title = '#bpdmremove#';
+									break;
 		}
 
 		$item->url = esc_url( $item->url );
@@ -48,7 +56,8 @@ add_filter( 'wp_nav_menu_objects', 'bpdm_wp_nav_menu_objects' );
 function bpdm_wp_nav_menu_objects( $sorted_menu_items )
 {
 	foreach( $sorted_menu_items as $k=>$item )
-		if( $item->title==$item->url && $item->title=='#bpdmregister#' )
+	// $item->title==$item->url &&
+		if( $item->title=='#bpdmremove#' )
 			unset( $sorted_menu_items[$k] );
 	return $sorted_menu_items;
 }
