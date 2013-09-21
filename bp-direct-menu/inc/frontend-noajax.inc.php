@@ -134,7 +134,7 @@ function bpdm_shortcode_loginout( $atts, $content = null )
 }
 
 /* [bpdm_logout] shortcode */
-add_shortcode( 'logout', 'bpdm_shortcode_logout' );
+add_shortcode( 'bpdm_logout', 'bpdm_shortcode_logout' );
 function bpdm_shortcode_logout( $atts, $content = null )
 {
 	extract(shortcode_atts(array(
@@ -148,7 +148,7 @@ function bpdm_shortcode_logout( $atts, $content = null )
 }
 
 /* [bpdm_register] shortcode */
-add_shortcode( 'register', 'bpdm_shortcode_register' );
+add_shortcode( 'bpdm_register', 'bpdm_shortcode_register' );
 function bpdm_shortcode_register( $atts, $content = null )
 {
 	if( is_user_logged_in() )
