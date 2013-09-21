@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== BP Direct Menus ===
 
 Contributors: mrwulf
 
