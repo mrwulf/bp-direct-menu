@@ -4,14 +4,14 @@
 Plugin Name: BP Direct Menus
 Plugin URI: http://github.com/mrwulf/bp-direct-menu
 Description: Add menu links that go directly to a user's buddypress pages
-Version: 1.0.0
+Version: 1.0.1
 Author: mrwulf
 Author URI: http://github.com/mrwulf
 */
 
 
 
-define( 'BPDIRECTMENU_VERSION', '1.0.0' );
+define( 'BPDIRECTMENU_VERSION', '1.0.1' );
 
 
 
